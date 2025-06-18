@@ -1,0 +1,119 @@
+前提: 
+安装 VS Code
+安装 ARM GCC 工具链
+安装 CMake
+
+克隆所需项目,例 lv_port_pc_vscode-master
+https://github.com/lvgl/lv_port_pc_vscode 
+根据说明配置 Visual Studio Code
+
+1. 终端进入根目录,新建 build 文件夹
+	cd lv_port_pc_vscode-master
+	mkdir build
+2.进入 build 文件夹,执行构建命令,根据源代码目录中的CMakeLists.txt文件生成含构建规则的构建系统文件（如Makefiles）
+	cd build
+	cmake ..  
+3.编译项目,执行 Makefile 中定义的指令来编译源代码并链接生成最终的执行文件或库。
+	make
+4.运行 Unix 可执行文件
+	../bin/main
+
+
+################修改代码###########
+1.保存代码
+2.终端进入 build 文件夹,重新构建项目
+	cd build
+	make
+3.运行 Unix 可执行文件
+	../bin/main
+
+################ v8.2 库 ###########
+Mac 下 使用 VSCode 运行 LVGL 虚拟机(v8)
+用 Make 命令编译
+https://blog.csdn.net/LINKKEEE/article/details/136622548
+
+	0.	克隆 lv_port_pc_vscode-release-v8 项目
+	0.	克隆 lvgl v8.2
+	0.	克隆 lv_drivers v8.2
+	0.	将 lvgl v8.2、lv_drivers v8.2 覆盖掉 lv_port_pc_vscode-release-v8 里的 lvgl、lv_drivers 
+	0.	打开根目录的 Makefile ,将 lv_driver 修改为 sdl2
+	0.	修改 Makefile 里的 INC、LDIBS, 链接 sdl2 (具体地址可通过终端 brew list sdl2 得到)
+
+见Pasted Graphic 1.png、Pasted Graphic 2.png、Pasted Graphic.png
+
+7. vscode 的集成终端运行 
+make -j12 && ./build/bin/demo
+
+8.配置 launch.json 、tasks.json
+tasks.json:
+{
+    "tasks": [
+        {
+            "label": "Build LVGL", // 任务名称,与 launch.json 的 preLaunchTask 一致
+            "type": "shell", // 任务类型,适用CMake、Makefile、通用构建任务
+            "command": "make", // 编译命令,使用 make 命令
+            "args": [
+                "-j12" // 使用 12 线程进行并行编译
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "CMake 构建任务: Generated task by VSCode",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent", // 不显示终端,不看任务的输出（如编译日志）
+                "focus": false,
+                "panel": "shared", // 任务输出共享到调试控制台
+                "showReuseMessage": true,
+                "clear": false
+            }
+        }
+    ],
+    "version": "2.0.0"
+}
+
+launch.json:
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug LVGL Demo",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bin/demo", // 确保路径正确
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [
+                {
+                    "name": "DISPLAY", // 确保 X11/SDL 能访问显示
+                    "value": ":0"
+                }
+            ],
+            "externalConsole": false, // 如果 GUI 不显示，可以尝试改为 true
+            "MIMode": "lldb",
+            "preLaunchTask": "Build LVGL" // 可选：调试前自动编译
+        }
+    ]
+}
+
+9.若遇到链接错误,如:;
+duplicate symbol '_main' in:
+    /**/build/obj/main/src/main.o
+    /**/build/obj/build/CMakeFiles/4.0.1/CompilerIdC/CMakeCCompilerId.o
+ld: 1 duplicate symbols
+
+需清理并重新构建
+cd build
+
+rm -rf * #彻底清理旧构建
+
+make -j12
+
+./build/bin/demo
+
+
+
+
