@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug LVGL Demo",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bin/demo", // 确保路径正确
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [
+                {
+                    "name": "DISPLAY", // 确保 X11/SDL 能访问显示
+                    "value": ":0"
+                }
+            ],
+            "externalConsole": false, // 如果 GUI 不显示，可以尝试改为 true
+            "MIMode": "lldb",
+            "preLaunchTask": "Build LVGL" // 可选：调试前自动编译
+        }
+    ]
+}

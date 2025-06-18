@@ -1,0 +1,27 @@
+{
+    "tasks": [
+        {
+            "label": "Build LVGL", // 任务名称,与 launch.json 的 preLaunchTask 一致
+            "type": "shell", // 任务类型,适用CMake、Makefile、通用构建任务
+            "command": "make", // 编译命令,使用 make 命令
+            "args": [
+                "-j12" // 使用 12 线程进行并行编译
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "CMake 构建任务: Generated task by VSCode",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent", // 不显示终端,不看任务的输出（如编译日志）
+                "focus": false,
+                "panel": "shared", // 任务输出共享到调试控制台
+                "showReuseMessage": true,
+                "clear": false
+            }
+        }
+    ],
+    "version": "2.0.0"
+}

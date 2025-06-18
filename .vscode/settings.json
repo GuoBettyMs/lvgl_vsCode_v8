@@ -1,0 +1,27 @@
+{
+    "files.associations": {
+        "*.sjs": "javascript",
+        "*.tyss": "css",
+        "stdlib.h": "c",
+        "lv_demo_stress.h": "c",
+        "lv_demos.h": "c",
+        "lvgl.h": "c",
+        "lv_drv_conf.h": "c",
+        "custom_chart.h": "c",
+        "__bit_reference": "c",
+        "__node_handle": "c",
+        "bitset": "c",
+        "deque": "c",
+        "limits": "c",
+        "locale": "c",
+        "optional": "c",
+        "ratio": "c",
+        "vector": "c",
+        "test.h": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "lv_style.h": "c"
+    },
+    "cmake.sourceDirectory": "/Users/user/Desktop/lv_port_pc_vscode-release-v8/lv_drivers"
+}
